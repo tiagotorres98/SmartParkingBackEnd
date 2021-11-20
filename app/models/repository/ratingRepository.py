@@ -9,3 +9,4 @@ class RatingRepository:
         return db.session.query(ParkingRating.fk_establishments,func.avg(ParkingRating.rating).label('average')
         ).filter_by(fk_establishments = id_establishment
         ).group_by(ParkingRating.fk_establishments).first()
+    

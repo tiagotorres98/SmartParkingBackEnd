@@ -35,7 +35,7 @@ app.secret_key = "EgcaT3Qm#a@vf8!EWV*!^nGaQmlXNcHErWN*"
 
 @app.route("/")
 def index():
-    return "Hello mundo!"
+    return "inicial"
 
 userEmailSession = CustomSession()
 
@@ -135,7 +135,7 @@ def updateUserData():
     carBrandData        =   data['car']['brand']
     carColorData        =   data['car']['color']
 
-    print(password)
+
     if authenticationVerify().verify(userEmailSession.getEmailUser(),password)["mensagem"] == "true":
         result = UpdateRegister().update(email,address,phone,carModelData,carBrandData,carColorData)
     else:
@@ -230,7 +230,7 @@ def get_historic():
 #------------------------------------------------------------------------------
 ###################### END OF OPTIONS PAGES ###################################
 
-############################ HOME PAGES ###################################
+############################ HOME PAGES #######################################
 #   HOME
 #   PARKING DETAILS
 #   RESERVE
@@ -269,7 +269,7 @@ def scheduleRents():
     user = UserRepository().getByEmail(userEmailSession.getEmailUser())
     postJson = request.data.decode('utf8')
     data = json.loads(postJson)
-    print(postJson)
+
 
     reserveStart        = data['id_establishment']
     reserveStart        = datetime.today() #data['reserve_start'].replace("T"," ").replace("Z","").replace(".000","")
@@ -368,11 +368,9 @@ def rating():
 ###############################################################################
 
 async def gate():
-    print("iniciou")
     gateOpen()
     await asyncio.sleep(10)
     gateClose()
-    print("finalizou")
 
 @app.route("/gateOpen")
 def gateOpen():
@@ -383,3 +381,26 @@ def gateOpen():
 def gateClose():
     Gate().close()
     return "Fechado"
+
+############################ FILTER PAGES #######################################
+#   FILTER
+#   FILTER-RESULT
+#################################################################################
+#---------------------------------- FILTER --------------------------------------
+@app.route("/filter",methods=['POST','GET'])
+def filter():
+    postJson =  request.args.get('filter')
+    data = json.loads(postJson)
+
+    user_avaliation = data["user_avaliation"]
+    minValue = data["minValue"]
+    maxValue = data["maxValue"]
+    parkingNameSearch = data["parkingNameSearch"]
+
+    parkings = ParkingRepository().getByFilter(user_avaliation,minValue,maxValue,parkingNameSearch)
+    result = ParkingRepository().returnToJson(parkings)
+ 
+    returnJson = json.dumps(result)
+    return returnJson
+#--------------------------------------------------------------------------------
+

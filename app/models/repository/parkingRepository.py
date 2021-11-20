@@ -17,6 +17,22 @@ class ParkingRepository:
         ).filter_by(id_establishment = id).join(EstablishmentDetails, EstablishmentDetails.fk_establishments == Establishment.id_establishment
         ).all()
 
+    def getByFilter(self,user_avaliation,minValue,maxValue,parkingNameSearch):
+        finalParkings = []
+        parkings = db.session.query(Establishment,EstablishmentDetails
+        ).join(EstablishmentDetails, EstablishmentDetails.fk_establishments == Establishment.id_establishment
+        ).filter(Establishment.name.like("%"+parkingNameSearch+"%")
+        ).filter(EstablishmentDetails.hour_value.between(minValue,maxValue)
+        ).all()
+
+        for x in parkings:
+            if  RatingRepository().getAVGByIdEstablishment(x.Establishment.id_establishment)[1] == user_avaliation or user_avaliation == 0:
+                finalParkings.append(x)
+                
+        return finalParkings
+
+
+
     def getNumberAvailableVacancies(self,idEst):
         rentsNumber = db.session.query(func.count(Rent.id_rent)).filter_by(fk_establishments = idEst).filter_by(exit_time = None).first()
         monthlyLeaseNumber = db.session.query(func.count(MonthlyLease.id)).filter_by(fk_establishments = idEst).filter_by(ic_active = 1).first()
