@@ -1,0 +1,104 @@
+{
+   "conversa":[
+      [
+         "1: Como alterar o preço do estacionamento?",
+         "Para alterar o preço do estacionamento, basta acessar a plataforma de gerenciamento do seu estacionamento, ir até a barra lateral esquerda e clicar em 'cadastro'. Lá, você terá o campo 'valor por hora' e 'valor diário'."
+      ],
+      [
+         "2: Como alterar o horário de funcionamento?",
+         "Para alterar o horário de funcionamento do espaço, acesse a barra lateral do lado esquerdo > clique em 'gerenciamento' > alterar horário > insira os novos horários > alterar."
+      ],
+      [
+         "3: Como alterar dados do meu perfil?",
+         "Para alterar os dados de seu cadastro, acesse a barra lateral do lado esquerdo > cadastro > editar."
+      ],
+      [
+         "4: Como ver o status do meu estacionamento?",
+         "Para verificar a atual situação de seu estacionamento, basta acessar no menu lateral esquerdo, a opção 'monitoramento do estacionamento'. Lá você pode verificar as avaliações, vagas e ocupação."
+      ],
+      [
+         "Oi",
+         " Olá, bem vindo ao atendimento do SmartParking. Qual seria sua dúvida? \\ 1- Como alterar preço do estacionamento?\\ 2- Como alterar o horário de funcionamento?\\ 3- Como alterar dados do meu perfil? 4- Como ver o status do meu estacionamento?"
+      ],
+      [
+         "Olá",
+         " Olá, bem vindo ao atendimento do SmartParking. Qual seria sua dúvida? \\ 1- Como alterar preço do estacionamento?\\ 2- Como alterar o horário de funcionamento?\\ 3- Como alterar dados do meu perfil? 4- Como ver o status do meu estacionamento?"
+      ],
+      [
+         "Olá, tudo bem?",
+         " Olá, bem vindo ao atendimento do SmartParking. Qual seria sua dúvida? \\ 1- Como alterar preço do estacionamento?\\ 2- Como alterar o horário de funcionamento?\\ 3- Como alterar dados do meu perfil?\\ 4- Como ver o status do meu estacionamento?"
+      ],
+      [
+         "Tudo bem?",
+         "Tudo ótimo, como posso ajudar?"
+      ],
+      [
+         "Bom dia",
+         "Bom dia, como posso ajudar?"
+      ],
+      [
+         "Boa noite",
+         "Boa noite, como posso ajudar?"
+      ],
+      [
+         "Boa tarde",
+         "Boa tarde, como posso ajudar?"
+      ],
+      [
+         "Outra dúvida",
+         "Para outras dúvidas será necessário entrar em contato com o suporte"
+      ],
+      [
+         "Outros",
+         "Para outras dúvidas será necessário entrar em contato com o suporte"
+      ],
+      [
+         "1",
+         "Para alterar o preço do estacionamento, basta acessar a plataforma de gerenciamento do seu estacionamento, ir até a barra lateral esquerda e clicar em 'cadastro'. Lá, você terá o campo 'valor por hora' e 'valor diário'."
+      ],
+      [
+         "2",
+         "Para alterar o horário de funcionamento do espaço, acesse a barra lateral do lado esquerdo > clique em 'gerenciamento' > alterar horário > insira os novos horários > alterar."
+      ],
+      [
+         "3",
+         "Para alterar os dados de seu cadastro, acesse a barra lateral do lado esquerdo > cadastro > editar."
+      ],
+      [
+         "4",
+         "Para verificar a atual situação de seu estacionamento, basta acessar no menu lateral esquerdo, a opção 'monitoramento do estacionamento'. Lá você pode verificar as avaliações, vagas e ocupação."
+      ],
+      [
+         "Preço",
+         "Para alterar o preço do estacionamento, basta acessar a plataforma de gerenciamento do seu estacionamento, ir até a barra lateral esquerda e clicar em 'cadastro'. Lá, você terá o campo 'valor por hora' e 'valor diário'."
+      ],
+      [
+         "Horário funcionamento",
+         "Para alterar o horário de funcionamento do espaço, acesse a barra lateral do lado esquerdo > clique em 'gerenciamento' > alterar horário > insira os novos horários > alterar."
+      ],
+      [
+         "Cadastro",
+         "Para alterar os dados de seu cadastro, acesse a barra lateral do lado esquerdo > cadastro > editar."
+      ],
+      [
+         "Vagas",
+         "Para verificar a atual situação de seu estacionamento, basta acessar no menu lateral esquerdo, a opção 'monitoramento do estacionamento'. Lá você pode verificar as avaliações, vagas e ocupação."
+      ],
+      [
+         "Mudar preço",
+         "Para alterar o preço do estacionamento, basta acessar a plataforma de gerenciamento do seu estacionamento, ir até a barra lateral esquerda e clicar em 'cadastro'. Lá, você terá o campo 'valor por hora' e 'valor diário'."
+      ],
+      [
+         "Mudar Horário funcionamento",
+         "Para alterar o horário de funcionamento do espaço, acesse a barra lateral do lado esquerdo > clique em 'gerenciamento' > alterar horário > insira os novos horários > alterar."
+      ],
+      [
+         "Mudar cadastro",
+         "Para alterar os dados de seu cadastro, acesse a barra lateral do lado esquerdo > cadastro > editar."
+      ],
+      [
+         "Verifica estacionamento",
+         "Para verificar a atual situação de seu estacionamento, basta acessar no menu lateral esquerdo, a opção 'monitoramento do estacionamento'. Lá você pode verificar as avaliações, vagas e ocupação."
+      ]
+   ]
+}

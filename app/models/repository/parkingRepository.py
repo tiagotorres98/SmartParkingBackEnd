@@ -7,6 +7,11 @@ from sqlalchemy.sql import func
 
 class ParkingRepository:
 
+    def getEstablishmentDetail(self,id):
+        return db.session.query(EstablishmentDetails
+        ).filter(EstablishmentDetails.fk_establishments == id
+        ).first()
+
     def getAllParkings(self):
         return db.session.query(Establishment,EstablishmentDetails
         ).join(EstablishmentDetails, EstablishmentDetails.fk_establishments == Establishment.id_establishment
@@ -31,13 +36,38 @@ class ParkingRepository:
                 
         return finalParkings
 
-
-
     def getNumberAvailableVacancies(self,idEst):
         rentsNumber = db.session.query(func.count(Rent.id_rent)).filter_by(fk_establishments = idEst).filter_by(exit_time = None).first()
         monthlyLeaseNumber = db.session.query(func.count(MonthlyLease.id)).filter_by(fk_establishments = idEst).filter_by(ic_active = 1).first()
         shceduled = db.session.query(func.count(ScheduledRents.id_scheduled)).filter_by(fk_establishments = idEst).filter_by(completed_schedule = None).first()
         return rentsNumber[0] + monthlyLeaseNumber[0] + shceduled[0]
+    
+    def returnToJsonParkingManager(self,result):
+        json = {
+            "open": str(result[0].EstablishmentDetails.time_open)[0:5],
+            "close": str(result[0].EstablishmentDetails.time_close)[0:5],
+            "day_week_init": result[0].EstablishmentDetails.day_week_init,
+            "day_week_end": result[0].EstablishmentDetails.day_week_end
+        }
+        return json
+
+    def returnToJsonParkingManagerRegister(self,result):
+        #Establishment,EstablishmentDetails
+        json = {
+            "fantasy_name":result[0].Establishment.name,
+            "vacancies_number":result[0].EstablishmentDetails.num_vacancies,
+            "company_email":result[0].Establishment.email,
+            "hour_price":result[0].EstablishmentDetails.hour_value,
+            "company_address":result[0].Establishment.address,
+            "daily_price":result[0].EstablishmentDetails.hour_value,
+            "cnpj":result[0].Establishment.cnpj,
+            "monthly_vacancies":result[0].EstablishmentDetails.num_monthly_vacancies,
+            "social_reason":result[0].Establishment.social_reason,
+            "monthly_price":result[0].EstablishmentDetails.monthly_lease_value,
+            "apresentation_image":"",
+            "password":"",
+        }
+        return json
 
     def returnToJson(self, result):
             userAvaliation = 0

@@ -1,19 +1,28 @@
 #from _typeshed import OpenBinaryMode, OpenBinaryModeReading
+import asyncio
 import json
 from datetime import date, datetime, timedelta
 from re import *
 
 from app import app, db
 from app.controllers import customSession
+from app.controllers.customSession import CustomSession
+from app.models.arduino.arduino import Gate
 from app.models.authenticationServices.authenticationVerify import \
     authenticationVerify
+from app.models.checkInOutServices.checkInOut import (CheckIn, CheckOut,
+                                                      PublishRating)
+from app.models.homeServices.home import *
+from app.models.optionsServices.options import *
 from app.models.registerServices.persistRegister import PersistRegister
 from app.models.repository.creditCardRepository import CreditCardRepository
 from app.models.repository.historicRepository import HistoricRepository
 from app.models.repository.monthlyLeaseRepository import MonthlyLeaseRepository
 from app.models.repository.parkingRepository import ParkingRepository
 from app.models.repository.servicesRepository import ServicesRepository
+from app.models.repository.UserRepository import UserRepository
 from app.models.tables import *
+from app.models.validators.checkIn import CheckInByCode, CheckOutByCode
 from app.models.validators.userRegisterValidator import userRegisterValidator
 from flask import render_template  # método para renderizar templates HTML,
 from flask import Blueprint, flash, redirect, request, session, url_for
@@ -21,17 +30,11 @@ from flask_login import LoginManager, current_user, login_required, login_user
 from flask_session import Session
 from sqlalchemy.sql.expression import case
 from werkzeug.security import check_password_hash, generate_password_hash
-from app.controllers.customSession import CustomSession
-from app.models.repository.UserRepository import UserRepository
-from app.models.optionsServices.options import *
-from app.models.homeServices.home import *
-from app.models.validators.checkIn import CheckInByCode,CheckOutByCode
-from app.models.checkInOutServices.checkInOut import CheckIn, CheckOut, PublishRating
-import asyncio
-from app.models.arduino.arduino import Gate
-
+from app.controllers.management import management_page
 
 app.secret_key = "EgcaT3Qm#a@vf8!EWV*!^nGaQmlXNcHErWN*"
+
+app.register_blueprint(management_page)
 
 @app.route("/")
 def index():

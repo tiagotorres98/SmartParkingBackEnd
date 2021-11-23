@@ -153,13 +153,16 @@ class Establishment(db.Model):
     cnpj = db.Column(db.String(100), unique=True, nullable=False)
     address = db.Column(db.String(255), nullable=False)
     reference_point = db.Column(db.String(255), nullable=False)
+    social_reason = db.Column(db.String(200), nullable=False)
+    email = db.Column(db.String(200), nullable=False)
 
-    def __init__(self, social_reason, name, cnpj, address, reference_point):
+    def __init__(self, social_reason, name, cnpj, address, reference_point,email):
         self.social_reason = social_reason
         self.name = name
         self.cnpj = cnpj
         self.address = address
         self.reference_point = reference_point
+        self.email = email
 
 class EstablishmentDetails(db.Model):
     __tablename__ = "establishments_details"
@@ -172,6 +175,10 @@ class EstablishmentDetails(db.Model):
     ic_monthly_lease = db.Column(db.Boolean, nullable=False)
     num_monthly_vacancies = db.Column(db.Integer)
     monthly_lease_value = db.Column(db.Float)
+    time_open = db.Column(db.Time)
+    time_close = db.Column(db.Time)
+    day_week_init = db.Column(db.String(20))
+    day_week_end = db.Column(db.String(20))
     
     parking_spaces = db.relationship("Establishment", foreign_keys=fk_establishments)    
 
@@ -364,17 +371,20 @@ class Service(db.Model):
 class ParkingService(db.Model):
     __tablename__ = "parking_services"
 
-    id_service = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     fk_establishments = db.Column(db.Integer, db.ForeignKey("establishments.id_establishment")) 
-    fk_services = db.Column(db.Integer, db.ForeignKey("services.id_service")) 
+    fk_services = db.Column(db.Integer, db.ForeignKey("services.id_service"))
+    qtdDias = db.Column(db.Integer)
+    ic_active = db.Column(db.Boolean)
 
     service = db.relationship("Service", foreign_keys=fk_services)
     establishment = db.relationship("Establishment", foreign_keys=fk_establishments)
 
-    def __init__(self, fk_establishments, fk_services):
+    def __init__(self, fk_establishments, fk_services,qtdDias,ic_active):
         self.fk_establishments = fk_establishments
         self.fk_services = fk_services
-
+        self.qtdDias = qtdDias
+        self.ic_active = ic_active
 
 class ScheduledRents(db.Model):
     __tablename__ = "scheduled_rents"
@@ -441,60 +451,18 @@ class Gate_Status(db.Model):
         self.ic_open = ic_open
         self.last_modified_date = last_modified_date
 
-'''
-class Payment_Method(db.Model):
-    __tablename__ = "payment_method"
+class Vacante_Status(db.Model):
+    __tablename__ = "vacante_status"
 
-    id_payment_method = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    desc = db.Column(db.String(500), nullable=True)
+    id = db.Column(db.Integer, primary_key=True)
+    v1 = db.Column(db.Integer)
+    v2 = db.Column(db.Integer)
+    v3 = db.Column(db.Integer)
+    last_modified_date = db.Column(db.DateTime)
 
-    def __init__(self, name, desc):
-        self.name = name
-        self.desc = desc
-
-    def __repr__(self):
-        return "<Payment_Method %r" % self.name
-'''
-'''
-class Sensor(db.Model):
-    __tablename__ = "sensors"
-
-    id_sensor = db.Column(db.Integer, primary_key=True)
-    fk_sensor_type = db.Column(db.Integer, db.ForeignKey("sensors_types.id_sensor_type")) 
-    fk_parking_space = db.Column(db.Integer, db.ForeignKey("parking_spaces.id_parking_space")) 
-    name = db.Column(db.String(80), nullable=False)
-    status = db.Column(db.Boolean, nullable=False)
-    modelo = db.Column(db.String(200), nullable=False)
-    observacoes = db.Column(db.String(500), nullable=False)
-
-    sensor_type = db.relationship("Sensor_Type", foreign_keys=fk_sensor_type)
-    parking_space = db.relationship("Parking_Space", foreign_keys=fk_parking_space)
-
-    def __init__(self, fk_sensor_type, fk_parking_space, name, status, modelo, observacoes):
-        self.fk_sensor_type = fk_sensor_type
-        self.fk_parking_space = fk_parking_space
-        self.name = name
-        self.status = status
-        self.modelo = modelo
-        self.observacoes = observacoes
-
-    def __repr__(self):
-        return "<Sensor %r" % self.name
-
-class Sensor_Type(db.Model):
-    __tablename__ = "sensors_types"
-    
-    id_sensor_type = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    desc = db.Column(db.String(200), nullable=False)
-
-    def __init__(self, id_sensor_type, name, desc):
-        self.id_sensor_type = id_sensor_type
-        self.name = name
-        self.desc = desc
-
-    def __repr__(self):
-        return "<Sensor_Type %r" % self.name
-'''
-
+    def __init__(self, id, v1, v2, v3, last_modified_date):
+        self.id = id
+        self.v1 = v1
+        self.v2 = v2
+        self.v3 = v3
+        self.last_modified_date = last_modified_date
