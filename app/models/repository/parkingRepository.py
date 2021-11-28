@@ -23,14 +23,22 @@ class ParkingRepository:
         ).all()
 
     def getByFilter(self,user_avaliation,minValue,maxValue,parkingNameSearch):
+        filterByValues = []
         finalParkings = []
         parkings = db.session.query(Establishment,EstablishmentDetails
         ).join(EstablishmentDetails, EstablishmentDetails.fk_establishments == Establishment.id_establishment
         ).filter(Establishment.name.like("%"+parkingNameSearch+"%")
-        ).filter(EstablishmentDetails.hour_value.between(minValue,maxValue)
         ).all()
 
         for x in parkings:
+            if int(minValue) == 0 and int(maxValue) == 0:
+                filterByValues.append(x)
+            elif int(maxValue) < int(minValue):
+                filterByValues.append(x)
+            elif int(maxValue) >= int(x.EstablishmentDetails.hour_value) and int(minValue) <= int(x.EstablishmentDetails.hour_value):
+                filterByValues.append(x)
+
+        for x in filterByValues:
             if  RatingRepository().getAVGByIdEstablishment(x.Establishment.id_establishment)[1] == user_avaliation or user_avaliation == 0:
                 finalParkings.append(x)
                 
@@ -81,7 +89,6 @@ class ParkingRepository:
                 if numVacancies == x.EstablishmentDetails.num_vacancies:
                     break
                 
-                print(numVacancies)
                 y = {
                         'id': x.Establishment.id_establishment,
                         'name': x.Establishment.name,

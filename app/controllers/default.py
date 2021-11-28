@@ -4,6 +4,8 @@ import json
 from datetime import date, datetime, timedelta
 from re import *
 
+from asyncio.tasks import sleep
+
 from app import app, db
 from app.controllers import customSession
 from app.controllers.customSession import CustomSession
@@ -19,6 +21,7 @@ from app.models.repository.creditCardRepository import CreditCardRepository
 from app.models.repository.historicRepository import HistoricRepository
 from app.models.repository.monthlyLeaseRepository import MonthlyLeaseRepository
 from app.models.repository.parkingRepository import ParkingRepository
+from app.models.repository.rentsRepository import RentsRepository
 from app.models.repository.servicesRepository import ServicesRepository
 from app.models.repository.UserRepository import UserRepository
 from app.models.tables import *
@@ -31,6 +34,7 @@ from flask_session import Session
 from sqlalchemy.sql.expression import case
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.controllers.management import management_page
+import _thread
 
 app.secret_key = "EgcaT3Qm#a@vf8!EWV*!^nGaQmlXNcHErWN*"
 
@@ -270,6 +274,19 @@ def parking_lots_id():
 def scheduleRents():   
 
     user = UserRepository().getByEmail(userEmailSession.getEmailUser())
+    sheduled = ScheduledRentsRepository().getByUserId(user.id)
+    rents = RentsRepository().getByIdUser(user.id) 
+
+    print(sheduled)
+    print(rents) 
+    if sheduled != []:
+        returnJson = json.dumps({"mensagem":"Você não pode locar uma nova vaga! Você já possui um agendamento em execução."})
+        return returnJson
+
+    elif rents != None:
+        returnJson = json.dumps({"mensagem":"Você não pode locar uma nova vaga! Você já está utilizando os serviços de um estacionamento."})
+        return returnJson
+
     postJson = request.data.decode('utf8')
     data = json.loads(postJson)
 
@@ -330,7 +347,7 @@ def codeToEnter():
         result = CheckIn().addRent(user)
 
     if result["mensagem"] == "true":
-        asyncio.run(gate())
+        _thread.start_new_thread(gate,())
 
     returnJson = json.dumps(result)
     return returnJson
@@ -369,10 +386,10 @@ def rating():
 ################################# ARDUINO #####################################
 #   ARDUINO
 ###############################################################################
-
-async def gate():
+from threading import Event
+def gate():
     gateOpen()
-    await asyncio.sleep(10)
+    Event().wait(5)
     gateClose()
 
 @app.route("/gateOpen")

@@ -10,8 +10,7 @@ class CheckInByCode():
         sheduled = ScheduledRentsRepository().getByUserId(idUser)
 
         if self.checkHasSchedule(sheduled) == False:
-            return {"mensagem":"Você não tem uma locação ativa, verifique seus dados! \
-            Caso de mais 2 tentativas de acesso seu usuário será bloqueado por 15 dias"}
+            return {"mensagem":"Você não tem um agendamento ativo, verifique seus dados!"}
 
         elif self.checkTimeScheduled(sheduled) == False:
             return {"mensagem":"O Tempo da sua reserva expirou. Para acessar o estacionamento será necessário agendar novamente."}
@@ -44,8 +43,7 @@ class CheckOutByCode():
         rents = RentsRepository().getByIdUser(idUser)
 
         if self.checkHasRents(rents) == False:
-            return {"mensagem":"Você não tem uma locação ativa, verifique seus dados! \
-            Caso de mais 2 tentativas de acesso seu usuário será bloqueado por 15 dias"}
+            return {"mensagem":"Você não tem uma locação ativa, verifique seus dados!"}
 
         elif self.checkCode(userCode) == False:
             return {"mensagem":"O código digitado está incorreto. Caso necessário, solicite ajuda a um funcionário do estabelecimento."}
@@ -54,7 +52,7 @@ class CheckOutByCode():
             return {"mensagem":"true"}
 
     def checkHasRents(self,rents):
-        if rents == None and rents == []:
+        if rents == None or rents == []:
             return False
     
     def checkCode(self,codes):

@@ -33,8 +33,9 @@ class CheckIn():
                 p = Rent_Service(rents.id_rent,service.fk_service,None,None)
                 db.session.add(p)
 
-            return {"mensagem":"true"}
             db.session.commit() 
+            return {"mensagem":"true"}
+
         except Exception as e:
             return {"mensagem":str(e)}
 

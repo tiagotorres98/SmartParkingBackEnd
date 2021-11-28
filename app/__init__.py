@@ -8,6 +8,7 @@ from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 import asyncio
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -16,6 +17,7 @@ import pandas as pd
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+CORS(app)
 
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)

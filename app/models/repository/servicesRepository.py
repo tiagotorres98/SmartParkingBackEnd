@@ -10,6 +10,7 @@ class ServicesRepository:
         ).join(ParkingService,ParkingService.fk_services == Service.id_service
         ).join(Establishment,Establishment.id_establishment == ParkingService.fk_establishments
         ).filter_by(id_establishment = idEstablishment
+        ).filter(ParkingService.ic_active == 1
         ).all()
 
     def getLastOne(self):

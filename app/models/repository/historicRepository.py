@@ -68,7 +68,9 @@ class HistoricRepository:
 
         def returnToJson(self, result):
             historic = []
+            
             for x in result:
+                servicesValue = 0
                 t = x.Rent.exit_time
                 timeout = ""
                 if t == None:
@@ -76,10 +78,14 @@ class HistoricRepository:
                 else:
                     timeout =  x.Rent.exit_time.strftime("%H:%M:%S")
                 
+                repo = ServicesRepository().getByRentId(x.Rent.id_rent)
+                for r in repo:
+                    servicesValue += r.Service.valor
+
                 y = {
                     'parking_name': x.Establishment.name, 
                     'date': x.Rent.scheduling_date.strftime("%d/%m/%Y"), 
-                    'price': x.Rent.hourly_value, 
+                    'price': x.Rent.hourly_value + servicesValue, 
                     'timeIn' : x.Rent.entry_time.strftime("%H:%M:%S"), 
                     'timeOut' : timeout
                 }
