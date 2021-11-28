@@ -6,8 +6,8 @@ cachelib==0.4.1
 catalogue==1.0.0
 certifi==2021.10.8
 charset-normalizer==2.0.7
-ChatterBot==1.0.8
-chatterbot-corpus==1.2.0
+ChatterBot
+chatterbot-corpus
 click==7.1.2
 colorama==0.4.4
 cymem==2.0.6
