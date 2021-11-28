@@ -30,10 +30,10 @@ class ENGSM:
 #download("en_core_web_sm")
 bot = ChatBot('Lucão',storage_adapter='chatterbot.storage.SQLStorageAdapter',tagger_language=ENGSM,
 database_uri='sqlite:///db.sqlite3')
-bot.set_trainer(ChatterBotCorpusTrainer)
-#bot.train("./conversa.json")
+trainer = ChatterBotCorpusTrainer(bot)
+trainer.train("./conversa.corpus.json")
 #bot.train("chatterbot.corpus.portuguese.greetings")
-bot.train("chatterbot.corpus.portuguese.conversa")
+#bot.train("chatterbot.corpus.portuguese.conversa")
 
 ########################## PARKING MONITORING ###############################
 #   PARKING DETAILS
