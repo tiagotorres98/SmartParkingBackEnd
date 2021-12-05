@@ -23,6 +23,7 @@ class HistoricRepository:
         
         def returnToJsonVacancyDetails(self,result):
             historic = []
+            print(result)
             for x in result:
                 services = []
                 servicesValue = 0

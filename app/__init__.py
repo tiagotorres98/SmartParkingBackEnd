@@ -12,6 +12,8 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_object('config')
+app.config['SQLALCHEMY_POOL_SIZE'] = 100
+app.config['SQLALCHEMY_POOL_RECYCLE'] = 280
 
 import pandas as pd
 

@@ -1,6 +1,6 @@
 from app import db
 from app.models.tables import Person, Rent, Vehicle, User
-from sqlalchemy import desc
+from sqlalchemy import desc,cast,Date
 from datetime import datetime
 
 class RentsRepository:
@@ -17,6 +17,14 @@ class RentsRepository:
     def getRentNotFinshed(self):
         return db.session.query(Rent).filter_by(exit_time = None).all()
         
+    def getVacancieMgn(self):
+        return db.session.query(Rent, Vehicle, User,Person
+        ).join(User,User.id == Rent.fk_user
+        ).join(Vehicle,Vehicle.fk_user == User.id
+        ).join(Person,Person.id_person == User.fk_person
+        ).filter(Rent.exit_time == None
+        ).all()
+
     def getById(self,id):
         return db.session.query(Rent, Vehicle, User,Person
         ).filter(Rent.id_rent == id
@@ -24,6 +32,20 @@ class RentsRepository:
         ).join(Vehicle,Vehicle.fk_user == User.id
         ).join(Person,Person.id_person == User.fk_person
         ).first()
+    
+    def getJustRentById(self,id):
+        return db.session.query(Rent).filter(Rent.id_rent == id).first()
+
+    def getByEstablishmentId(self,id):
+        return db.session.query(Rent
+        ).filter(Rent.fk_establishments == id
+        ).all()
+    
+    def getByDate(self,id,date):
+        return db.session.query(Rent
+        ).filter(Rent.fk_establishments == id
+        ).filter(cast(Rent.entry_time,Date) == cast(date,Date)
+        ).all()
 
     def returnJson(self,result):
         

@@ -12,7 +12,7 @@ class AddSheduledLease():
             result = ScheduledRentsRepository().getByUserId(sheduledRent.fk_user)
             services = ServicesRepository().getServicesByEstablishments(sheduledRent.fk_establishments)
             if len(result) > 0:
-                return {"mensagem":"Você já possui uma vaga pré agendada. Realize sua entrada ou aguarde os 15 minutos para cancelar o agendamento."}
+                return {"mensagem":"Você já possui uma vaga pré agendada. Realize sua entrada ou aguarde os 30 minutos para cancelar o agendamento."}
             else:    
                 db.session.add(sheduledRent)
                 result = ScheduledRentsRepository.getLast()

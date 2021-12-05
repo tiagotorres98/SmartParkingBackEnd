@@ -45,6 +45,13 @@ class CheckOut():
     def endRent(self,user):
         try:
             rent = RentsRepository().getByIdUser(user.id)
+            return self.endRentService(rent)
+        except Exception as e:
+            return {"mensagem":str(e)}
+    
+    def endRentService(self,rent):
+        try:
+            print(rent)
             rent.exit_time = datetime.today()
             db.session.merge(rent)
             db.session.commit()

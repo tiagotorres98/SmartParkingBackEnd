@@ -293,7 +293,7 @@ def scheduleRents():
 
     reserveStart        = data['id_establishment']
     reserveStart        = datetime.today() #data['reserve_start'].replace("T"," ").replace("Z","").replace(".000","")
-    reserveEnd          = datetime.today() + timedelta(minutes=15) #data['reserve_end'].replace("T"," ").replace("Z","").replace(".000","")
+    reserveEnd          = datetime.today() + timedelta(minutes=30) #data['reserve_end'].replace("T"," ").replace("Z","").replace(".000","")
     servicesSelected    = data['servicesSelected']
 
     sheduledLease = ScheduledRents(user.id,data['id_establishment'],reserveStart,reserveEnd)

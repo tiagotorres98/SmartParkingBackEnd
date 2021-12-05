@@ -13,6 +13,14 @@ class ServicesRepository:
         ).filter(ParkingService.ic_active == 1
         ).all()
 
+    def getAllServicesByEstablishments(self,idEstablishment):
+
+        return db.session.query(Service,ParkingService
+        ).join(ParkingService,ParkingService.fk_services == Service.id_service
+        ).join(Establishment,Establishment.id_establishment == ParkingService.fk_establishments
+        ).filter_by(id_establishment = idEstablishment
+        ).all()
+
     def getLastOne(self):
          return db.session.query(Service).order_by(desc("id_service")).first()
 
